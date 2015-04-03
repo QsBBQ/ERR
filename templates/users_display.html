@@ -1,0 +1,36 @@
+<body>
+  <h1>Welcome to Extreme Ruck Racing<h1>
+  <ul>
+    <div class="accordian-class">
+    {% for location in locations %}
+    <h2><li>{{ location.name }}</li></h2>
+      <ul>
+        <div class="accordian-class">
+        {% for team in location.teams %}
+        <h3><li>{{ team.name }}</li></h3>
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Status</th>
+            <th>Comments</th>
+            <th>Date Created</th
+          </tr>
+          {% for user in team.users %}
+          <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.age }}</td>
+            <td>{{ user.status }}</td>
+            <td>{{ user.comments }}</td>
+            <td>{{ user.create_date }}</td>
+          </tr>
+          {% endfor %}
+        {% endfor %}
+        </div>
+      </ul>
+    {% endfor %}
+    </div>
+  </ul>
+</body>
