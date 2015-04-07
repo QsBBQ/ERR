@@ -6,6 +6,13 @@ In the world of extreme ruck running contestants strap on ruck sacks and trek ac
 
 As a programer I have been tasked with building the software infrastructure for ERR llc.
 
+Some goals
+- query ordered by age
+- Accordion or advice on dealing with minimizing and expanding data
+- Search by user, team, location
+
+
+
 User stories
 1. As a admin I need to be able to view and edit contestants details.
 1. As an admin I need to run reports on contestants such as contestants for upcoming races and  age group winners.

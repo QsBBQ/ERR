@@ -1,10 +1,12 @@
-<body>
-  <h1>Welcome to Extreme Ruck Racing<h1>
+{% extends "layout.html" %}
+{% block content %}
   <ul>
     <div class="accordian-class">
     {% for location in locations %}
     <h2><li>{{ location.name }}</li></h2>
       <ul>
+      <form method="post" action="/users/save">
+        <input type="hidden" name="_method" value "put"
         <div class="accordian-class">
         {% for team in location.teams %}
         <h3><li>{{ team.name }}</li></h3>
@@ -15,22 +17,32 @@
             <th>Age</th>
             <th>Status</th>
             <th>Comments</th>
-            <th>Date Created</th
+            <th>Date Created</th>
+            <th><button>Save</button></th>
           </tr>
           {% for user in team.users %}
           <tr>
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.age }}</td>
-            <td>{{ user.status }}</td>
-            <td>{{ user.comments }}</td>
+            <td>
+              <select class="enable" name="[{{ user.id }}][status]">
+                <option value={{ user.status }} selected="selected">{{ user.status }}</option>
+                <option value="Canceled">Canceled</option>
+                <option value="Invalid">Invalid</option>
+              </select>
+            </td>
+            <td><input class="enable" type="text" name="[{{ user.id }}][comments]" value={{ user.comments }}></td>
             <td>{{ user.create_date }}</td>
+            <td><input class "checkbox" type="checkbox">Edit</td>
           </tr>
           {% endfor %}
+        </table>
         {% endfor %}
         </div>
+      </form>
       </ul>
     {% endfor %}
     </div>
   </ul>
-</body>
+{% endblock %}

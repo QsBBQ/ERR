@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, url_for
 
 #Alchemy imports
 from sqlalchemy import create_engine
@@ -20,15 +20,19 @@ app = Flask(__name__)
 def index():
     return "Index Test"
 
-@app.route("/users")
+@app.route("/users", methods=['GET'])
 def users():
     locations = s.query(Location).all()
     return render_template('users_display.html',
                            locations=locations
                            )
 
+@app.route("/users/save", methods=['POST'])
+def users_save():
+    pass
 @app.route("/events")
 def events():
     return "Events test!"
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True, port=5003)
