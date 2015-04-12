@@ -8,10 +8,10 @@ Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 
-s=DBSession()
+s = DBSession()
 
-#tests checking the model
-#clean ip develment db
+# tests checking the model
+# clean ip develment db
 for users in s.query(User).all():
     s.delete(users)
 for teams in s.query(Team).all():
@@ -35,9 +35,9 @@ print(s.query(Location).count() == 0)
 # print(s.query(City).count() == 0)
 # print(s.query(Race).count() == 0)
 
-#Location test
-mylocation = Location(name = "Chicago",
-                      comments = "chicago pizza"
+# Location test
+mylocation = Location(name="Chicago",
+                      comments="chicago pizza"
                       )
 s.add(mylocation)
 s.commit()
@@ -46,10 +46,10 @@ print("Location add record")
 print(s.query(Location).count() == 1)
 print(s.query(Location).filter(Location.name == "Chicago").first().name == "Chicago")
 
-#Team Test
-myteam = Team(name = "Team1",
-              description = "Team1 rocks!"
-             )
+# Team Test
+myteam = Team(name="Team1",
+              description="Team1 rocks!"
+              )
 s.add(myteam)
 s.commit()
 
@@ -57,20 +57,20 @@ print("Team add record")
 print(s.query(Team).count() == 1)
 print(s.query(Team).filter(Team.name == "Team1").first().name == "Team1")
 
-#User Test
-myuser = User(name = "Chuck Norris",
-              email = "chuck@norris.com",
-              age = 50,
-              status = "Confirmed",
-              comments = "Chuck Norris is awesome"
-             )
+# User Test
+myuser = User(name="Chuck Norris",
+              email="chuck@norris.com",
+              age=50,
+              status="Confirmed",
+              comments="Chuck Norris is awesome"
+              )
 s.add(myuser)
 s.commit()
 print("User add record")
 print(s.query(User).count() == 1)
 print(s.query(User).filter(User.name == "Chuck Norris").first().name == "Chuck Norris")
 
-#relationships
+# relationships
 myuser.team_id = myteam.id
 s.commit()
 #

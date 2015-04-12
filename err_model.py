@@ -8,13 +8,13 @@ import datetime
 
 Base = declarative_base()
 
-#The tables
+# The tables
 
-#Seemed like the thing to do for many to many. ie. many users have many races
-#association_table = Table('association', Base.metadata,
+# Seemed like the thing to do for many to many. ie. many users have many races
+# association_table = Table('association', Base.metadata,
 #    Column('users_id', Integer, ForeignKey('users.id')),
 #    Column('races_id', Integer, ForeignKey('races.id'))
-#)
+# )
 
 
 class User(Base):
@@ -23,20 +23,21 @@ class User(Base):
     name = Column(String(50), nullable=True)
     email = Column(String(50), nullable=True)
     age = Column(Integer, nullable=True)
-    #address = Column(String(50), nullable=True)
+    # address = Column(String(50), nullable=True)
     status = Column(String(50))
     comments = Column(String(250))
     create_date = Column(DateTime, default=datetime.datetime.now())
     last_modified = Column(DateTime, onupdate=datetime.datetime.now)
-    #Relationships
-    #A user has a address(worry about multiple address later)
-    #address_id = Column(Integer, ForeignKey("addresses.id"))
-    #A race has many users. Worry about this later
-    #race = relationship("Race",
+    # Relationships
+    # A user has a address(worry about multiple address later)
+    # address_id = Column(Integer, ForeignKey("addresses.id"))
+    # A race has many users. Worry about this later
+    # race = relationship("Race",
     #                    secondary=association_table,
     #                    backref="users")
-    #Many users have a team
+    # Many users have a team
     team_id = Column(Integer, ForeignKey('teams.id'))
+
 
 class Team(Base):
     __tablename__ = "teams"
@@ -45,11 +46,12 @@ class Team(Base):
     description = Column(String(250))
     create_date = Column(DateTime, default=datetime.datetime.now())
     last_modified = Column(DateTime, onupdate=datetime.datetime.now)
-    #Relationships
-    #A team has a location
+    # Relationships
+    # A team has a location
     location_id = Column(Integer, ForeignKey('locations.id'))
-    #A team has many users
+    # A team has many users
     users = relationship("User", backref=backref('teams', order_by=id))
+
 
 class Location(Base):
     __tablename__ = "locations"
@@ -58,10 +60,10 @@ class Location(Base):
     comments = Column(String(250))
     create_date = Column(DateTime, default=datetime.datetime.now())
     last_modified = Column(DateTime, onupdate=datetime.datetime.now)
-    #Relationships
+    # Relationships
     teams = relationship("Team", backref=backref('locations', order_by=id))
 
-#Simplied the example above but hope to explore more options.
+# Simplied the example above but hope to explore more options.
 #
 # class Address(Base):
 #     __tablename__ = "addresses"

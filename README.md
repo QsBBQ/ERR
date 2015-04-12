@@ -26,7 +26,6 @@ User
 - Email
 - Age
 - Comments
--
 
 Collection
 
