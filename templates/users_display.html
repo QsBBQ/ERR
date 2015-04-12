@@ -1,48 +1,65 @@
 {% extends "layout.html" %}
 {% block content %}
+
+
   <ul>
-    <div class="accordion-class">
-    {% for location in locations %}
-    <h2 data-toggle="collapse" data-parent=".accordion-class"><li>{{ location.name }}</li></h2>
-      <ul>
-      <form method="post" action="/users/save">
-        <input type="hidden" name="_method" value="put">
-        <div class="accordion-class">
-        {% for team in location.teams %}
-        <h3 class="panel-collapse collapse"><li>{{ team.name }}</li></h3>
-        <table class ="table table-bordered">
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Age</th>
-            <th>Status</th>
-            <th>Comments</th>
-            <th>Date Created</th>
-            <th><button>Save</button></th>
-          </tr>
-          {% for user in team.users %}
-          <tr>
-            <td>{{ user.name }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.age }}</td>
-            <td>
-              <select class="enable" name="[{{ user.id }}][status]" disabled>
-                <option value={{ user.status }} selected="selected">{{ user.status }}</option>
-                <option value="Canceled">Canceled</option>
-                <option value="Invalid">Invalid</option>
-              </select>
-            </td>
-            <td><input class="enable" type="text" name="[{{ user.id }}][comments]" value={{ user.comments }} disabled></td>
-            <td>{{ user.create_date }}</td>
-            <td><input class="checkbox" type="checkbox">Edit</td>
-          </tr>
-          {% endfor %}
-        </table>
-        {% endfor %}
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      {% for location in locations %}
+        <div class="panel panel-default">
+          <h2 class="panel-title">
+            <li>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{loop.index}}" aria-expanded="true" aria-controls="collapseOne">
+                {{ location.name }}
+              </a>
+            </li>
+          </h2>
+        </div>
+        <div id="collapse{{loop.index}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <ul>
+              <form method="post" action="/users/save">
+                <input type="hidden" name="_method" value="put">
+                {% for team in location.teams %}
+                  <h3><li>{{ team.name }}</li></h3>
+                  <table id="table" data-toggle="table" class ="table table-bordered" data-sort-name="age" data-sort-order="desc">
+                    <thead>
+                      <tr>
+                        <th data-sortable="true">Name</th>
+                        <th data-sortable="true">Email</th>
+                        <th data-field="age" data-align="right" data-sortable="true">Age</th>
+                        <th data-sortable="true">Status</th>
+                        <th data-sortable="true">Comments</th>
+                        <th data-sortable="true">Date Created</th>
+                        <th><button class="form-button" type="submit">Save</button></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in team.users %}
+                    <tr>
+                      <td>{{ user.name }}</td>
+                      <td>{{ user.email }}</td>
+                      <td>{{ user.age }}</td>
+                      <td>
+                        <select class="enable enable-status" name="[{{ user.id }}][status]" disabled>
+                          <option value={{ user.status }} selected="selected">{{ user.status }}</option>
+                          <option value="Canceled">Canceled</option>
+                          <option value="Invalid">Invalid</option>
+                        </select>
+                      </td>
+                      <td><input class="enable enable-comments" type="text" name="[{{ user.id }}][comments]" value={{ user.comments }} disabled></td>
+                      <td>{{ user.create_date }}</td>
+                      <td><input class="checkbox" type="checkbox" name="{{ user.id }}">Edit</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+              {% endfor %}
         </div>
       </form>
       </ul>
     {% endfor %}
+    </div>
+    </div>
     </div>
   </ul>
 {% endblock %}
