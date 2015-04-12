@@ -40,7 +40,7 @@ for locations in location_list:
                     locations=location)
         s.add(team)
         s.commit()
-        for n in range(0, 100):
+        for n in range(0, 5):
             user = User(name=faker.name(),
                         email=faker.email(),
                         age=random.randint(18, 65),

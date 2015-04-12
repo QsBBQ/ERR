@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, url_for, redirect, json
+from flask import Flask, render_template, request, redirect, \
+    jsonify
 
 #Alchemy imports
 from sqlalchemy import create_engine
@@ -32,9 +33,19 @@ def users():
 
 @app.route("/users/save", methods=['POST'])
 def users_save():
-    for id, attribute in request.data:
-        print(id, attribute)
-    return redirect("/users")
+    if request.method == 'POST':
+        print(request.form.get('statusUpdate'))
+        print(request.form.get('commentsUpdate'))
+        """
+        try:
+            update database
+            return json({"results":success})
+        except:
+            return json({"results":error})
+        """
+        for id, attribute in request.data:
+            print(id, attribute)
+        return "test"
 
 
 @app.route("/events")
